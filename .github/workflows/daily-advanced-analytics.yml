@@ -23,7 +23,7 @@ jobs:
           STAMP=$(date +"%Y%m%d")
           DAY=$(date +"%j")
 
-          mkdir -p case-studies sql python docs dashboards charts
+          mkdir -p case-studies sql python docs dashboards charts issues
 
           PROJECTS=(
             "store_performance|Store Performance Analytics|Rank stores by sales, visits, average ticket, and operational performance."
