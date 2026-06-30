@@ -1,0 +1,34 @@
+name: Weekly Portfolio Issue
+
+on:
+  schedule:
+    - cron: "0 15 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create weekly improvement issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = new Date().toISOString().slice(0, 10);
+            const topics = [
+              'Add dashboard screenshot for latest case study',
+              'Improve executive summary for analytics project',
+              'Add sample data dictionary for SQL model',
+              'Review KPI glossary and metric assumptions',
+              'Add business recommendation section to case study'
+            ];
+            const title = `${topics[Math.floor(Math.random() * topics.length)]} - ${date}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body: `Portfolio maintenance task for ${date}.\n\nAcceptance criteria:\n- Update one case study or SQL file.\n- Clarify business context.\n- Add next-step recommendation.`,
+              labels: ['portfolio', 'analytics']
+            });
